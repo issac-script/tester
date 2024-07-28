@@ -1,10 +1,4 @@
-local players = game:GetService("Players")
 
-
-local function highlightPlayer(player)
-    local character = player.Character
-    if character then
-       
         local highlight = Instance.new("Highlight")
         highlight.Parent = character
         highlight.Adornee = character
