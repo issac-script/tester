@@ -1,39 +1,29 @@
+local script = Instance.new("LocalScript")
+script.Parent = game.Players.LocalPlayer.PlayerGui
+
+local players = game:GetService("Players")
+
+local function highlightPlayer(player)
+    local character = player.Character
+    if character then
 
         local highlight = Instance.new("Highlight")
         highlight.Parent = character
         highlight.Adornee = character
-        highlight.OutlineColor = Color3.new(2, 0, 0) -- Red
+        highlight.OutlineColor = Color3.new(1, 0, 0) -- Red
         highlight.OutlineTransparency = 0.5
-
-        
-        local label = Instance.new("BillboardGui")
-        label.Parent = character
-        label.StudsOffset = Vector3.new(0, 4.5, 0)
-        label.Size = UDim2.new(0, 150, 0, 50)
-
-        local textLabel = Instance.new("TextLabel")
-        textLabel.Parent = label
-        textLabel.Text = player.Name
-        textLabel.Font = Enum.Font.SourceSans
-        textLabel.FontSize = Enum.FontSize.Size14
-        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White
-        textLabel.BackgroundTransparency = 1
-        textLabel.Size = UDim2.new(1, 1, 2, 0)
     end
 end
-
 
 for _, player in pairs(players:GetPlayers()) do
     highlightPlayer(player)
 end
 
-
 players.PlayerAdded:Connect(function(player)
-   
+
     player.CharacterAdded:Wait()
     highlightPlayer(player)
 end)
-
 
 players.PlayerRemoving:Connect(function(player)
     local character = player.Character
@@ -41,10 +31,6 @@ players.PlayerRemoving:Connect(function(player)
         local highlight = character:FindFirstChild("Highlight")
         if highlight then
             highlight:Destroy()
-        end
-        local label = character:FindFirstChildWhichIsA("BillboardGui")
-        if label then
-            label:Destroy()
         end
     end
 end)
